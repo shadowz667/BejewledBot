@@ -1,8 +1,7 @@
 import sys
 import autopy
 import time
-print("Hello Atom")
-
+import finder
 #Set location to top corner to start
 #These values are determined by screen size and window size
 x = 462.0+55.5
@@ -27,7 +26,8 @@ def create_board(tol = 30):
     leterboard = []
     for row in board:
         lrow = []
-        #May need to make this smarter to catch special gems good enough for now
+        #May need to make this smarter to catch specia gems good enough for now
+        #Ideas compare multiple boards, look at shape detection
         for gem in row:
             if((gem[0] > (white[0] - tol)) and (gem[0] < (white[0]+tol)) and (gem[1] > (white[1]- tol)) and (gem[1] < (white[1]+tol)) and (gem[2] > (white[2]- tol)) and (gem[2] < (white[2]+tol))):
                 lrow.append('w')
@@ -93,6 +93,3 @@ def move_right(xcor,ycor):
 
 for r in create_board():
     print(r)
-autopy.mouse.move(x+111,y+555)
-
-#print(autopy.mouse.location())
