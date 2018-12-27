@@ -17,7 +17,7 @@ memory = deque(maxlen=2000)
 score = 0
 #under construction brain will be made smarter soon tm
 model = Sequential()
-model.add(Dense(64, input_shape=(3,)))
+model.add(Dense(64, input_shape=(8,8,3)))
 model.add(Dense(action_size))
 model.compile(optimizer='adam',
               loss='logcosh',
@@ -37,7 +37,7 @@ def targetQ(size):
     for state, action, reward, next_state, done in samp:
         target = reward
         if not done:
-            target = reward + gamma * np.amax(model.predict(next_state)[0])
+            target = reward + gamma * np.amax(model.predict(next_state))
         future = model.predict(state)
         future[0][action] = target
         model.fit(state, future, epochs=1, verbose=0)
@@ -46,9 +46,13 @@ def targetQ(size):
 
 def find_move(action):
     dir = action%4
-    gem = action/64
+    gem = action//4
     x = gem%8
-    y = gem/8
+    y = gem//8
+    print("Using action " + str(action))
+    print("moving gem " + str(gem))
+    print("mapped to location " + str(x) +"," + str(y))
+    print("in direction "+ str(dir))
     if dir == 0:
         r = game.move_up(x,y)
     elif dir == 1:
@@ -81,6 +85,7 @@ def run_game():
         score = 0
         board = np.array(game.create_board())
         runs = 0
+        done = False
         while(done!=True):
             runs += 1
             action = act(board)
@@ -93,5 +98,6 @@ def run_game():
                 done = True
         targetQ(32)
 
+model.predict(board)
 run_game()
 #print(board)
