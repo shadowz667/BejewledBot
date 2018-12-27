@@ -17,8 +17,7 @@ pytesseract.pytesseract.tesseract_cmd = r'C:\Program Files (x86)\Tesseract-OCR\t
 def get_score():
     autopy.bitmap.capture_screen(((x1,y1),(x2,y2))).save("BejewledBot\\screencaps\\score.png","png")
     score = pytesseract.image_to_string("BejewledBot\\screencaps\\score.png")
-    print(score)
-    print("hi")
+    #print(score)
     if(score == ''):
         return 0
     score = score.split(',')
