@@ -46,12 +46,14 @@ def create_board(tol = 30):
             else:
                 lrow.append('x')
         leterboard.append(lrow)
-    for l in leterboard:
-        print(l)
+#    for l in leterboard:
+#        print(l)
     return board
 
 
 def move_up(xcor,ycor):
+    xcor = xcor*111+x
+    ycor = ycor*111+y
     if(ycor-111<y):
         return -1
     else:
@@ -62,6 +64,8 @@ def move_up(xcor,ycor):
     autopy.mouse.move(x-100,y)
 
 def move_down(xcor,ycor):
+    xcor = xcor*111+x
+    ycor = ycor*111+y
     if(ycor+111>y+777):
         return -1
     else:
@@ -72,6 +76,8 @@ def move_down(xcor,ycor):
     autopy.mouse.move(x-100,y)
 
 def move_left(xcor,ycor):
+    xcor = xcor*111+x
+    ycor = ycor*111+y
     if(xcor-111<x):
         return -1
     else:
@@ -82,6 +88,8 @@ def move_left(xcor,ycor):
     autopy.mouse.move(x-100,y)
 
 def move_right(xcor,ycor):
+    xcor = xcor*111+x
+    ycor = ycor*111+y
     if(xcor+111>x+777):
         return -1
     else:
@@ -91,5 +99,23 @@ def move_right(xcor,ycor):
         autopy.mouse.click()
     autopy.mouse.move(x-100,y)
 
-for r in create_board():
-    print(r)
+def reset_game():
+    if finder.get_score() == 0:
+        x = 'n'
+        while x!='y':
+            input(x)
+    else:
+        autopy.mouse.move(238.0, 918.0)
+        autopy.mouse.click()
+        autopy.mouse.move(751.0, 814.0)
+        time.sleep(1)
+        autopy.mouse.click()
+        autopy.mouse.move(269.0, 238.0)
+        time.sleep(2)
+        autopy.mouse.click()
+        autopy.mouse.move(841.0, 441.0)
+        time.sleep(1)
+        autopy.mouse.click()
+
+#for r in create_board():
+#    print(r)
