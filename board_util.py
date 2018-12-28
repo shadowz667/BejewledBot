@@ -103,7 +103,7 @@ def reset_game():
     if finder.get_score() == 0:
         x = 'n'
         while x!='y':
-            input(x)
+            x = input("press y to cont")
     else:
         autopy.mouse.move(238.0, 918.0)
         autopy.mouse.click()
@@ -116,7 +116,7 @@ def reset_game():
         autopy.mouse.move(841.0, 441.0)
         time.sleep(1)
         autopy.mouse.click()
-        time.sleep(2)
+        time.sleep(1)
 
 #for r in create_board():
 #    print(r)

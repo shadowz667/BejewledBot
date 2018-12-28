@@ -15,8 +15,8 @@ y2 = 50
 
 pytesseract.pytesseract.tesseract_cmd = r'C:\Users\Lucas\Downloads\tesseract-Win64\tesseract'
 def get_score():
-    autopy.bitmap.capture_screen(((x1,y1),(x2,y2))).save("BejewledBot\\screencaps\\score.png","png")
-    score = pytesseract.image_to_string("BejewledBot\\screencaps\\score.png", config=" -c tessedit_char_whitelist=0123456789")
+    autopy.bitmap.capture_screen(((x1,y1),(x2,y2))).save("screencaps\\score.png","png")
+    score = pytesseract.image_to_string("screencaps\\score.png", config=" -c tessedit_char_whitelist=0123456789")
     #print(score)
     if(score == ''):
         return 0
