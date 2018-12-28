@@ -49,15 +49,13 @@ class BejewledBot():
         if self.epsilon > self.ep_min:
             self.epsilon *= self.ep_dec
 
-    def find_move(self,action,board,score):
+    def find_move(self, action, board, lboard, score):
         dir = action%4
         gem = action//4
         x = gem%8
         y = gem//8
-        #print("Using action " + str(action))
-        #print("moving gem " + str(gem))
-        #print("mapped to location " + str(x) +"," + str(y))
-        #print("in direction "+ str(dir))
+        if game.check_move(x,y,dir,lboard) != True:
+            return board, lboard, -1, False
         if dir == 0:
             r = game.move_up(x,y)
         elif dir == 1:
@@ -67,7 +65,7 @@ class BejewledBot():
         else:
             r = game.move_right(x,y)
         if r==-1:
-            return board, r, False
+            return board, lboard, r, False
         #wait for move if applicable
         time.sleep(1)
         nscore = finder.get_score()
@@ -82,7 +80,7 @@ class BejewledBot():
             if trys == 10:
                 nscore = 0
         if nscore==score:
-            return board, -1, False
+            return board, lboard, -1, False
         if nscore==0:
             #wait for level to transition/match if its real long
             time.sleep(5)
@@ -90,22 +88,24 @@ class BejewledBot():
             #gameover
             if nscore<=0:
                 print("gameover")
-                return board, -1, True
-        return np.expand_dims(np.array(game.create_board()),axis=0), (nscore-score)/50, False
+                return board, lboard, -1, True
+        board, lboard = game.create_board()
+        return np.expand_dims(np.array(board),axis=0), lboard, (nscore-score)/50, False
 
     def run_game(self):
 
         for i in range(0,10):
             game.reset_game()
             score = 0
-            board = np.expand_dims(np.array(game.create_board()),axis=0)
+            board, lboard = game.create_board()
+            board = np.expand_dims(np.array(board),axis=0)
             self.model.predict(board)
             runs = 0
             done = False
             while(done!=True):
                 runs += 1
                 action = self.act(board)
-                next_board, reward, done = self.find_move(action,board,score)
+                next_board, lboard, reward, done = self.find_move(action,board,lboard,score)
                 self.memory.append((board, action, reward, next_board, done))
                 board = next_board
                 if runs%50==0:
