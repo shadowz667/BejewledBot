@@ -13,15 +13,18 @@ y2 = 50
 #x1,y1 = 137.0, 101.0
 #x2,y2 = 309.0-x1, 157.0-y1
 
-pytesseract.pytesseract.tesseract_cmd = r'C:\Program Files (x86)\Tesseract-OCR\tesseract'
+pytesseract.pytesseract.tesseract_cmd = r'C:\Users\Lucas\Downloads\tesseract-Win64\tesseract'
 def get_score():
     autopy.bitmap.capture_screen(((x1,y1),(x2,y2))).save("BejewledBot\\screencaps\\score.png","png")
-    score = pytesseract.image_to_string("BejewledBot\\screencaps\\score.png")
+    score = pytesseract.image_to_string("BejewledBot\\screencaps\\score.png", config=" -c tessedit_char_whitelist=0123456789")
     #print(score)
     if(score == ''):
         return 0
-    score = score.split(',')
+    score = score.split(' ')
     score2 = ''
     for s in score:
         score2 = score2+s
-    return int(score2)
+    try:
+        return int(score2)
+    except:
+        return -1

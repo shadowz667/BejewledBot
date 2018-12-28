@@ -116,6 +116,7 @@ def reset_game():
         autopy.mouse.move(841.0, 441.0)
         time.sleep(1)
         autopy.mouse.click()
+        time.sleep(2)
 
 #for r in create_board():
 #    print(r)
