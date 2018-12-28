@@ -73,7 +73,7 @@ class BejewledBot():
         nscore = finder.get_score()
         print("score: " + str(nscore))
         trys = 0
-        while nscore==-1 or nscore%50!=0:
+        while nscore%10!=0:
             time.sleep(1)
             nscore = finder.get_score()
             print("score: " + str(nscore))
@@ -87,10 +87,9 @@ class BejewledBot():
             #wait for level to transition/match if its real long
             time.sleep(5)
             nscore = finder.get_score()
-            if nscore==score:
-                return board, -1, False
             #gameover
             if nscore<=0:
+                print("gameover")
                 return board, -1, True
         return np.expand_dims(np.array(game.create_board()),axis=0), (nscore-score)/50, False
 
