@@ -48,7 +48,7 @@ def create_board(tol = 30):
         leterboard.append(lrow)
 #    for l in leterboard:
 #        print(l)
-    return leterboard
+    return board, leterboard
 
 
 def move_up(xcor,ycor):
@@ -311,7 +311,7 @@ def reset_game():
         autopy.mouse.move(841.0, 441.0)
         time.sleep(1)
         autopy.mouse.click()
-        time.sleep(1)
+        time.sleep(5)
 
 #for r in create_board():
 #    print(r)

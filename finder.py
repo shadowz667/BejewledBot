@@ -12,11 +12,12 @@ y2 = 50
 #zen mode
 #x1,y1 = 137.0, 101.0
 #x2,y2 = 309.0-x1, 157.0-y1
-
+#file = "BejewledBot\\screencaps\\score.png"
+file = "screencaps\\score.png"
 pytesseract.pytesseract.tesseract_cmd = r'C:\Users\Lucas\Downloads\tesseract-Win64\tesseract'
 def get_score():
-    autopy.bitmap.capture_screen(((x1,y1),(x2,y2))).save("screencaps\\score.png","png")
-    score = pytesseract.image_to_string("screencaps\\score.png", config=" -c tessedit_char_whitelist=0123456789")
+    autopy.bitmap.capture_screen(((x1,y1),(x2,y2))).save(file,"png")
+    score = pytesseract.image_to_string(file, config=" -c tessedit_char_whitelist=0123456789")
     #print(score)
     if(score == ''):
         return 0
