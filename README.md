@@ -9,3 +9,4 @@ Update the neural net to converge to a solution sooner (need help with this one)
 Create documentation on setting up the board position
 Devise a strategy for better board detection
 Test a categorical approach to data entry for models
+Current task: Create a simulation to better test different models and inputs 
